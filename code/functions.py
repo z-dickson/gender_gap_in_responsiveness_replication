@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 import statsmodels.api as sm
+from sklearn.metrics import confusion_matrix
 from statsmodels.tsa.api import VAR
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.api import VECM
@@ -49,6 +50,36 @@ def print_MIP_descriptive_stats():
 
 
 
+
+def print_confusion_matrix(file):
+
+    cm = pd.read_csv(f'../data/{file}')
+
+    ## plot confusion matrix
+    fig = px.imshow(cm, color_continuous_scale='Blues', 
+                    labels=dict(x="Predicted", y="Actual", color="Frequency"), 
+                    x=list(cm.columns), y=list(cm.columns), 
+                    title='Confusion Matrix for UK Public Policy Priorities', 
+                    width=800, height=800, color_continuous_midpoint=0.5, zmin=0, zmax=250, 
+                    # add text for the values in each cell
+                    text_auto=True
+                    )
+
+
+    fig.update_layout(
+        font_family="Courier New",
+        font_color="black",
+        title_font_family="Arial",
+        title_font_size=26,
+        title_font_color="black",
+        font_size = 12,
+        legend_title_font_color="black", 
+        template='plotly_white',
+        title_text='Confusion Matrix: Model Predictions vs. Annotated Labels',
+        #plot_bgcolor='#c1c8d4',
+        #paper_bgcolor='#c1c8d4'
+        )
+    fig.show()
 
 
 
