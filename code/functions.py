@@ -14,8 +14,6 @@ from statsmodels.tsa.ar_model import AutoReg, ar_select_order
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.tools.tools import add_constant
 from sklearn.preprocessing import StandardScaler
-<<<<<<< HEAD
-=======
 from pyfixest.estimation import feols, fepois
 from pyfixest.utils import get_data
 from pyfixest import etable
@@ -28,15 +26,12 @@ def fit_poisson_FE(df, gender, cov):
     else:
         cluster = 'survey_date_int'
     return fepois(f'issue_tweets ~ log_ratio_{gender}_mip * gender + vote_share + total_tweets | name + survey_date_int + party + issue', data=df, vcov= {'CRV1':cluster})
->>>>>>> master
 
 
 
 
 
 
-<<<<<<< HEAD
-=======
 def fit_log_linear(df, gender, cov):
     if cov == 2:
         cluster = 'survey_date_int + name'
@@ -128,7 +123,6 @@ def print_twitter_descriptive_stats(country):
 
 
 # function to print the descriptive statistics of the MIP data
->>>>>>> master
 
 def print_MIP_descriptive_stats():
 
@@ -349,11 +343,7 @@ def make_mip_plot(mip, col_wrap, country):
 def make_attention_plot(country, lowess_frac):
     
     
-<<<<<<< HEAD
-    path = '../data/attention_time_series_v2.csv'
-=======
     path = '../data/pooled_data.csv'
->>>>>>> master
 
     df = pd.read_csv(path)
 
