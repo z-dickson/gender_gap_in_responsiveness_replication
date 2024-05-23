@@ -14,12 +14,121 @@ from statsmodels.tsa.ar_model import AutoReg, ar_select_order
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.tools.tools import add_constant
 from sklearn.preprocessing import StandardScaler
+<<<<<<< HEAD
+=======
+from pyfixest.estimation import feols, fepois
+from pyfixest.utils import get_data
+from pyfixest import etable
+
+
+
+def fit_poisson_FE(df, gender, cov):
+    if cov == 2:
+        cluster = 'survey_date_int + name'
+    else:
+        cluster = 'survey_date_int'
+    return fepois(f'issue_tweets ~ log_ratio_{gender}_mip * gender + vote_share + total_tweets | name + survey_date_int + party + issue', data=df, vcov= {'CRV1':cluster})
+>>>>>>> master
 
 
 
 
 
 
+<<<<<<< HEAD
+=======
+def fit_log_linear(df, gender, cov):
+    if cov == 2:
+        cluster = 'survey_date_int + name'
+    else:
+        cluster = 'survey_date_int'
+    return feols(f'log_attention ~ log_ratio_{gender}_mip * gender + vote_share | name + survey_date_int + party + issue', data=df, vcov= {'CRV1':cluster})
+
+def fit_asinh_linear(df, gender, cov):
+    if cov == 2:
+        cluster = 'survey_date_int + name'
+    else:
+        cluster = 'survey_date_int'
+    return feols(f'np.arcsinh(issue_tweets) ~ log_ratio_{gender}_mip * gender + vote_share + total_tweets | name + survey_date_int + party + issue', data=df, vcov= {'CRV1':cluster})
+
+def fit_natural_linear(df, gender, cov):
+    if cov == 2:
+        cluster = 'survey_date_int + name'
+    else:
+        cluster = 'survey_date_int'
+    return feols(f'issue_tweets ~ log_ratio_{gender}_mip * gender + vote_share + total_tweets | name + survey_date_int + party + issue', data=df, vcov= {'CRV1':cluster})
+
+
+
+## helper function to get the results of the model in latex format
+
+def latex_table_FE_models(df):
+    df = df.replace('log_ratio_female_mip', 'Women\'s Salience', regex=True).replace('issue_tweets', 'Tweets', regex=True).replace('survey_date_int', 'Time', regex=True).replace('np.arcsinh(Tweets)', 'IVHS(Tweets)', regex=True).replace('log_attention', 'log(Attention)', regex=True).replace('gender', 'Women Representative', regex=True).replace('vote_share', 'Vote Share', regex=True).replace('total_tweets', 'Total Tweets', regex=True).replace('name', 'Rep.', regex=True).replace('est', 'M', regex=True).replace('log_ratio_male_mip', 'Men\'s Salience', regex=True).replace('log_ratio_female_mip', 'Women\'s Salience', regex=True)
+    df = df.round(3)
+    return print(df.to_latex(index=False, escape=False) )
+
+
+
+
+
+# function to read and create the dataset required for the fixed effects estimates 
+
+def create_FE_data(path):
+    df = pd.read_pickle(path)
+    df['mip'] = (df.female_mip + df.male_mip) / 2
+
+    # create gender variable
+    df.gender = df.gender.map({'male': 0, 'female': 1})
+
+    df['attention'] = df.issue_tweets / df.total_issue_tweets
+    df.attention = df.attention.fillna(0)
+    df['log_attention'] = np.log(df.attention + .01)
+
+    ## get log ratio of proportional data (composition data)
+    def get_log_ratio(df, col):
+        x = df.copy()
+        x = x.loc[x[col] != 0]
+        return np.log(x[col] / x[col].sum())
+
+    #df['log_ratio_attention'] = get_log_ratio(df, 'attention')
+    df['log_ratio_male_mip'] = get_log_ratio(df, 'male_mip')
+    df['log_ratio_female_mip'] = get_log_ratio(df, 'female_mip')
+
+
+    us = df[df['country'] == 'us']
+    uk = df[df['country'] == 'uk']
+
+    us = us.loc[us.issue != 'international_affairs']
+    
+    return us, uk 
+
+
+
+
+
+# function to print the descriptive statistics of the twitter data 
+
+def print_twitter_descriptive_stats(country):
+    df = pd.read_csv('../data/pooled_data.csv')
+    df = df.loc[df.country == country]
+    df['Issue'] = df.issue.str.title()
+    df['Country'] = df.country.str.upper()
+    x = df.groupby(['Country', 'Issue'])[['issue_tweets_male']].describe().round(2).reset_index()
+    x.columns = x.columns.droplevel(0)
+    x.columns = ['Country', 'Issue', 'count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max']
+    tab = x.drop(columns=['Country', 'Issue']).applymap(lambda x: str.format("{:0_.2f}", x).replace('.', ',').replace('_', '.'))
+    tab[['Country', 'Issue']] = x[['Country', 'Issue']]
+    tab=tab.replace(',', '.', regex=True)
+    tab = tab[['Country', 'Issue', 'count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max']]
+    print(tab.to_latex(index=False))
+    
+
+
+
+
+
+# function to print the descriptive statistics of the MIP data
+>>>>>>> master
 
 def print_MIP_descriptive_stats():
 
@@ -240,7 +349,11 @@ def make_mip_plot(mip, col_wrap, country):
 def make_attention_plot(country, lowess_frac):
     
     
+<<<<<<< HEAD
     path = '../data/attention_time_series_v2.csv'
+=======
+    path = '../data/pooled_data.csv'
+>>>>>>> master
 
     df = pd.read_csv(path)
 
