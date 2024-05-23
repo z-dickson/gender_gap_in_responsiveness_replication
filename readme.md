@@ -29,6 +29,7 @@ All code files are available in the `code` folder. The `code` folder contains th
 1. `main.ipynb`: Jupyter notebook with the analysis code - (**Note:** this is the main file to run to replicate the analysis.)
 2. `poisson_estimation.R`: R script to estimate the Poisson regression model.
 3. `requirements.txt`: Python package requirements for the analysis.
+4. `functions.py`: A python file of all functions for the analysis/figures
 
 
 
