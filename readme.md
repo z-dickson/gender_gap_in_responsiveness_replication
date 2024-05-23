@@ -3,49 +3,32 @@ title: "Replication for *The Gender Gap in Elite-Voter Responsiveness Online*"
 format: pdf
 ---
 
+## Instructions
 
 This repository contains the replication files for the the paper "The Gender Gap in Elite-Voter Responsiveness Online" by [Zachary P Dickson](https://z-dickson.github.io/). The paper is forthcoming in *Perspectives on Politics*.
 
 
-<<<<<<< HEAD
 All files necessary to replicate the analysis are included in the repository. The repo also contains the analysis dataset. The repo does not contain the raw Twitter data, as Twitter requests that these data are not made public. 
 
-To replicate the analysis, users will need to have [Python](https://www.python.org/) and [Jupyter](https://jupyter.org/) installed on their machine. [Anaconda](https://anaconda.org/anaconda/python) provides a convenient way to install both.
-
-The analysis is conducted in a Jupyter notebook with detailed comments. The notebook is titled `main.ipynb`.
-
-All data files are available in the `data` folder. The `data` folder contains the following files:
-
-
-All output files are available in the `output` folder. The `output` folder contains the following files:
-=======
 To replicate the analysis, users will need to have [Python](https://www.python.org/) and [Jupyter](https://jupyter.org/) installed on their machine. [Anaconda](https://anaconda.org/anaconda/python) provides a convenient way to install both.
 
 
 There are two folders in this repository: `data` and `code`.
 
-The `data` folder contains the data files used in the analysis.  The `code` folder contains the code to replicate the analysis in the paper.
+### Data 
 
-
-
-
- The `data` folder contains the following files:
+The `data` folder contains the following files:
 
 1. `uk_MIP.xlsx`: Data on public salience of different issues in the UK from [YouGov](https://yougov.co.uk/topics/society/trackers/the-most-important-issues-facing-the-country)
 2. `us_MIP.xlsx`: Data on public salience of different issues in the US from [YouGov](https://today.yougov.com/topics/politics/trackers/most-important-issues-facing-the-us)
 3. `individual_data.csv`: Data on the individual behavior of US and UK MPs. Data are indexed by name (legislator), time (survey period), country (US or UK) and issue (issues explained in the article). (**Note:** Twitter prevents the sharing of individual tweets so this data is not included but instructions on how to collect the data are provided below.)
 4. `pooled_data.csv`: Time series data that is arranged in a pooled format with one row for men legislators' attention, one row for women legislators' attention, one row for women's issue salience and one row for men's issue salience. This data is simply a transformation of the `individual_data.csv` file. (**Note:** Twitter prevents the sharing of individual tweets so this data is not included but instructions on how to collect the data are provided below.)
 5. `confusion_matrix_data.csv`: Data on the confusion matrix for the large language model. 
->>>>>>> master
 
-
+### Code
 
 All code files are available in the `code` folder. The `code` folder contains the following files:
 
-<<<<<<< HEAD
-1. `main.ipynb`: Jupyter notebook with the analysis code.
-
-=======
 1. `main.ipynb`: Jupyter notebook with the analysis code - (**Note:** this is the main file to run to replicate the analysis.)
 2. `poisson_estimation.R`: R script to estimate the Poisson regression model.
 3. `requirements.txt`: Python package requirements for the analysis.
@@ -92,4 +75,3 @@ classifier("We can’t count on SCOTUS to protect our reproductive freedom. The 
 
 
 In the case that you're unable to find any of the required data, or have any issues with the replication, please don't hesitate to contact me at zachdickson94@gmail.com. 
->>>>>>> master
