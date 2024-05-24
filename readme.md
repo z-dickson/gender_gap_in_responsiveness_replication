@@ -1,10 +1,4 @@
----
-format:
-  pdf:
-    toc: false
-    number-sections: false
-    colorlinks: true
---- 
+
 
 ### Replication for: *The Gender Gap in Elite-Voter Responsiveness Online*
 
