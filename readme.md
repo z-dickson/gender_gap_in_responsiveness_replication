@@ -1,11 +1,23 @@
-# "Replication for *The Gender Gap in Elite-Voter Responsiveness Online*"
+---
+format:
+  pdf:
+    toc: false
+    number-sections: false
+    colorlinks: true
+--- 
 
+### Replication for: *The Gender Gap in Elite-Voter Responsiveness Online*
+
+
+**Journal:** [*Perspectives on Politics*](https://www.cambridge.org/core/journals/perspectives-on-politics) 
+
+**Author:** [Zachary P Dickson](https://z-dickson.github.io/)
 
 ## Instructions
 
-This repository contains the replication files for the the paper "The Gender Gap in Elite-Voter Responsiveness Online" by [Zachary P Dickson](https://z-dickson.github.io/). The paper is forthcoming in *Perspectives on Politics*.
+This repository contains the replication files for the the paper "The Gender Gap in Elite-Voter Responsiveness Online" by [Zachary P Dickson](https://z-dickson.github.io/).
 
-To replicate the analysis, users will need to have [Python](https://www.python.org/) and [Jupyter](https://jupyter.org/) installed on their machine. [Anaconda](https://anaconda.org/anaconda/python) provides a convenient way to install both.
+To replicate the analysis, users will need to have [R](https://www.r-project.org/),  [Python](https://www.python.org/) and [Jupyter](https://jupyter.org/) installed on their machine. [Anaconda](https://anaconda.org/anaconda/python) provides a convenient way to install all three. 
 
 
 There are two folders in this repository: `data` and `code`.
@@ -34,7 +46,7 @@ All code files are available in the `code` folder. The `code` folder contains th
 ## Data Collection
 
 **Twitter data:**
-Although Twitter (not X) prevents the sharing of data, there are several sources from which the data can be collected that appear to disregard guidelines. For example, all legislators' tweets for the past 8 years are available on [Github](https://github.com/alexlitel/congresstweets). 
+Although Twitter (now X) prevents the sharing of data, there are several sources from which the data can be collected that appear to disregard guidelines. For example, all legislators' tweets for the past 8 years are available on [Github](https://github.com/alexlitel/congresstweets). 
 
 **Issue salience data:** 
 The issue salience data is collected from YouGov. The data is available for download from the YouGov website. For the UK, data are available [here](https://yougov.co.uk/topics/society/trackers/the-most-important-issues-facing-the-country). For the US, data are available [here](https://today.yougov.com/topics/politics/trackers/most-important-issues-facing-the-us). You can navigate to the bottom of the page and download the data in Excel format.
@@ -61,10 +73,14 @@ mp = 'z-dickson/issue_classification_tweets'
 model = AutoModelForSequenceClassification.from_pretrained(mp)
 tokenizer =  AutoTokenizer.from_pretrained('bert-base-uncased')
 
-classifier = TextClassificationPipeline(tokenizer=tokenizer, model=model, device=0)
+classifier = TextClassificationPipeline(tokenizer=tokenizer,
+					model=model,
+					device=0)
 
-
-classifier("We can’t count on SCOTUS to protect our reproductive freedom. The Senate must pass the Women’s Health Protection Act now.")
+classifier("""
+We can’t count on SCOTUS to protect our reproductive freedom. \\
+The Senate must pass the Women’s Health Protection Act now. \\
+""")
 
 ```
 
